@@ -13,8 +13,5 @@ def setup(request):
 
 def searchQuery(request):
     query = request.GET.get('query')
-    print(query)
-    query = 'Barriers'
     response = search(query, index_path)
-    print(response)
     return JsonResponse(response)
