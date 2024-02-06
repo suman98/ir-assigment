@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vue.js and Bootstrap 5 Example</title>
+
+    <!-- Add Bootstrap CSS link -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <!-- Add Vue.js CDN link -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+  <body>
+    {% verbatim %}
+    <!-- Your Vue.js content goes here -->
+    <div id="app" class="container mt-3">
+      <button @click="initialize" class="btn btn-success" :disabled="isProcessing">
+        <i class="fa fa-spinner" aria-hidden="true" v-if="isProcessing"></i>
+        Initialize
+      </button>
+
+      <div v-if="isDataSetup">
+        Data Setup complete not you can start performing query
+      </div>
+
+      <form @submit.prevent="submitForm" class="mt-3" v-if="isDataSetup">
+        <div class="mb-3">
+          <label for="query" class="form-label">Query</label>
+          <input
+            v-model="query"
+            type="text"
+            class="form-control"
+            placeholder="Enter your query"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary"  :disabled="isProcessing">
+          <i class="fa fa-spinner" aria-hidden="true" v-if="isProcessing"></i>Submit</button>
+      </form>
+      <div class="card mt-3">
+      <table class="table table-hover table-responsvive mb-0">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Authors</th>
+            <th>Year</th>
+            <th>Publication Url</th>
+            <th>Profile Url</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="res,index of result" :key="index">
+            <td>
+              {{ res.title }}
+            </td>
+            <td>
+              {{ res.Authors }}
+            </td>
+            <td>
+              {{ res.Year }}
+            </td>
+            <td>
+              {{ res.publication_url }}
+            </td>
+            <td>
+              <a :href="res.profile_url" _blank>{{ res.profile_url }}</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+    {% endverbatim %}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: {
+          query: "",
+          isDataSetup: false,
+          result: [],
+          isProcessing: false
+        },
+        methods: {
+          initialize() {
+            this.isProcessing = true
+            // Your initialization logic here
+            axios.get('/myapp/setup').then(response => {
+              this.isDataSetup = response.data.success 
+            }).catch(error=> {
+              alert(error)
+            }).finally(() => {
+              this.isProcessing = false
+            })
+          },
+          submitForm() {
+            this.isProcessing = true
+            axios.get('/myapp/search', {
+              params: {
+                query: this.query
+              }
+            }).then(response => {
+              this.result = response.data.result
+            }).catch(error=> {
+              alert(error)
+            }).finally(() => {
+              this.isProcessing = false
+            })
+          },
+        },
+      });
+    </script>
+
+    <!-- Add Bootstrap JS and Popper.js (required for some Bootstrap components) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
