@@ -88,7 +88,7 @@
           initialize() {
             this.isProcessing = true
             // Your initialization logic here
-            axios.get('/myapp/setup').then(response => {
+            axios.get('/setup').then(response => {
               this.isDataSetup = response.data.success 
             }).catch(error=> {
               alert(error)
@@ -98,7 +98,7 @@
           },
           submitForm() {
             this.isProcessing = true
-            axios.get('/myapp/search', {
+            axios.get('/search', {
               params: {
                 query: this.query
               }
