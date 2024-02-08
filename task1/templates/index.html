@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Vue.js and Bootstrap 5 Example</title>
+    <title>Assignment 1</title>
 
     <!-- Add Bootstrap CSS link -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <!-- Add Vue.js CDN link -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   </head>
@@ -38,17 +38,17 @@
           />
         </div>
         <button type="submit" class="btn btn-primary"  :disabled="isProcessing">
-          <i class="fa fa-spinner" aria-hidden="true" v-if="isProcessing"></i>Submit</button>
+          <i class="fa fa-spinner fa-spin" aria-hidden="true" v-if="isProcessing"></i>Submit</button>
       </form>
       <div class="card mt-3">
-      <table class="table table-hover table-responsvive mb-0">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Authors</th>
-            <th>Year</th>
-            <th>Publication Url</th>
-            <th>Profile Url</th>
+      <table class="table table-hover table-responsvive mb-0 table-bordered">
+        <thead >
+          <tr class="text-center">
+            <th class="bg-primary text-white">Title</th>
+            <th class="bg-primary text-white">Authors</th>
+            <th class="bg-primary text-white">Year</th>
+            <th class="bg-primary text-white">Publication Url</th>
+            <th class="bg-primary text-white">Profile Url</th>
           </tr>
         </thead>
         <tbody>
@@ -66,7 +66,7 @@
               {{ res.publication_url }}
             </td>
             <td>
-              <a :href="res.profile_url" _blank>{{ res.profile_url }}</a>
+              <a :href="res.profile_url" target="_blank">{{ res.profile_url }}</a>
             </td>
           </tr>
         </tbody>
