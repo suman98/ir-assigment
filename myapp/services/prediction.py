@@ -49,5 +49,4 @@ def assign_to_cluster(new_doc):
 
     # Predict the cluster for the new document
     predicted_cluster = kmeans.predict(new_doc_vectorized)
-
     return cluster_labels[predicted_cluster[0]]

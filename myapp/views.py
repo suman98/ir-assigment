@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from myapp.services.scrapper import crawl_and_index, search
 from myapp.services.prediction import assign_to_cluster
 base_url = "https://pureportal.coventry.ac.uk/en/organisations/ihw-centre-for-health-and-life-sciences-chls"
 index_path = "storage"
